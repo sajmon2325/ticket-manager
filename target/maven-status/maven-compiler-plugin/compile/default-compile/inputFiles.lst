@@ -1,0 +1,12 @@
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\items\Incident.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\items\BaseItem.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\items\Change.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\users\User.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\items\Ticket.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\users\IncidentSolver.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\ChangeType.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\ItemStatus.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\IncidentType.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\TicketType.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\TicketManagerApplication.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\UserType.java
