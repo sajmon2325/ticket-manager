@@ -1,0 +1,17 @@
+com\opensourcedev\ticketmanager\model\items\Change$ChangeBuilder.class
+com\opensourcedev\ticketmanager\model\items\Change.class
+com\opensourcedev\ticketmanager\model\users\User.class
+com\opensourcedev\ticketmanager\TicketManagerApplication.class
+com\opensourcedev\ticketmanager\model\items\Ticket$TicketBuilder.class
+com\opensourcedev\ticketmanager\model\enums\ItemStatus.class
+com\opensourcedev\ticketmanager\model\items\Incident.class
+com\opensourcedev\ticketmanager\model\users\IncidentSolver$IncidentSolverBuilder.class
+com\opensourcedev\ticketmanager\model\enums\ChangeType.class
+com\opensourcedev\ticketmanager\model\enums\IncidentType.class
+com\opensourcedev\ticketmanager\model\enums\UserType.class
+com\opensourcedev\ticketmanager\model\items\Incident$IncidentBuilder.class
+com\opensourcedev\ticketmanager\model\users\User$UserBuilder.class
+com\opensourcedev\ticketmanager\model\enums\TicketType.class
+com\opensourcedev\ticketmanager\model\users\IncidentSolver.class
+com\opensourcedev\ticketmanager\model\items\Ticket.class
+com\opensourcedev\ticketmanager\model\items\BaseItem.class
