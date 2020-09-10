@@ -1,6 +1,7 @@
 package com.opensourcedev.ticketmanager.model.items;
 
-import com.opensourcedev.ticketmanager.model.enums.TicketType;
+import com.opensourcedev.ticketmanager.model.enums.ChangeType;
+
 import lombok.*;
 
 import javax.persistence.Column;
@@ -17,18 +18,19 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Ticket extends BaseItem{
+public class ChangeTicket extends BaseItem{
 
-    //@Column(name = "ticket_Id", unique = true)
     @NotBlank
-    private String ticketId; // public ID set by user
+    private String changeId;    // public ID set by user
 
+    @NotBlank
     @Enumerated(value = EnumType.STRING)
-    @NotBlank
-    private TicketType ticketType;
+    private ChangeType changeType;
 
-    @Column(length = 500)
+
+    @NotBlank
     @Min(10)
+    @Column(length = 500)
     private String description;
 
 }
