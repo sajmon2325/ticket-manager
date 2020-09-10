@@ -1,7 +1,9 @@
 package com.opensourcedev.ticketmanager.repository;
 
-import com.opensourcedev.ticketmanager.model.items.Change;
+import com.opensourcedev.ticketmanager.model.items.ChangeTicket;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ChangeRepository extends CrudRepository<Change, String> {
+@Repository
+public interface ChangeRepository extends CrudRepository<ChangeTicket, String> {
 }
