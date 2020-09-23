@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class ChangeCrudServiceImpl implements CrudService<ChangeTicket, String> {
+public class ChangeInterfaceImpl implements ChangeInterface {
 
     private final ChangeRepository changeRepository;
 
-    public ChangeCrudServiceImpl(ChangeRepository changeRepository) {
+    public ChangeInterfaceImpl(ChangeRepository changeRepository) {
         this.changeRepository = changeRepository;
     }
 

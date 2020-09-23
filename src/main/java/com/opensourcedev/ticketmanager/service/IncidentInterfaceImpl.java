@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class IncidentCrudServiceImpl implements CrudService<Incident, String>{
+public class IncidentInterfaceImpl implements IncidentInterface {
 
     private final IncidentRepository incidentRepository;
 
-    public IncidentCrudServiceImpl(IncidentRepository incidentRepository) {
+    public IncidentInterfaceImpl(IncidentRepository incidentRepository) {
         this.incidentRepository = incidentRepository;
     }
 
