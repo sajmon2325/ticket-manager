@@ -19,7 +19,7 @@ public class ChangeInterfaceImpl implements ChangeInterface {
 
 
     @Override
-    public Set<ChangeTicket> findAll(String id) {
+    public Set<ChangeTicket> findAll() {
         Set<ChangeTicket> changeTickets = new HashSet<>();
         changeRepository.findAll().forEach(changeTickets::add);
         return changeTickets;
