@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeDTO {
+public class ChangeTicketDto {
 
     private String changeId;    // public ID set by user
 

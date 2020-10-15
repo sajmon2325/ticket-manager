@@ -17,12 +17,11 @@ public class TicketInterfaceImpl implements TicketInterface {
     }
 
 
-
     @Override
-    public Set<Ticket> findAll(String id) {
-        Set<Ticket> tickets = new HashSet<>();
-        ticketRepository.findAll().forEach(tickets::add);
-        return tickets;
+    public Set<Ticket> findAll() {
+            Set<Ticket> tickets = new HashSet<>();
+            ticketRepository.findAll().forEach(tickets::add);
+            return tickets;
     }
 
     @Override

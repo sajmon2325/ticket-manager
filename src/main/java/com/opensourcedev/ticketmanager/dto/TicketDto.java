@@ -1,7 +1,7 @@
 package com.opensourcedev.ticketmanager.dto;
 
-import com.opensourcedev.ticketmanager.model.enums.IncidentType;
 import com.opensourcedev.ticketmanager.model.enums.ItemStatus;
+import com.opensourcedev.ticketmanager.model.enums.TicketType;
 import com.opensourcedev.ticketmanager.model.users.IncidentSolver;
 import com.opensourcedev.ticketmanager.model.users.User;
 import lombok.*;
@@ -13,10 +13,12 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class IncidentDTO {
+public class TicketDto {
 
-    private String incidentId; // public ID set by user
-    private IncidentType incidentType;
+    private String ticketId; // public ID set by user
+
+    private TicketType ticketType;
+    private String description;
 
     private ItemStatus itemStatus;
 
