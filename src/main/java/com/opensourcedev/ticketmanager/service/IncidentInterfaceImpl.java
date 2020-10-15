@@ -18,7 +18,7 @@ public class IncidentInterfaceImpl implements IncidentInterface {
 
 
     @Override
-    public Set<Incident> findAll(String id) {
+    public Set<Incident> findAll() {
         Set<Incident> incidents = new HashSet<>();
         incidentRepository.findAll().forEach(incidents::add);
         return incidents;

@@ -16,13 +16,13 @@ import java.util.Set;
 @RestController
 @Slf4j
 @RequestMapping({"/change", "/Change"})
-public class ChangeController {
+public class ChangeTicketController {
 
     private final ChangeInterface changeInterface;
     public static final String BASE_URL = "http://localhost:8080/change/";
 
 
-    public ChangeController(ChangeInterface changeInterface) {
+    public ChangeTicketController(ChangeInterface changeInterface) {
         this.changeInterface = changeInterface;
     }
 
