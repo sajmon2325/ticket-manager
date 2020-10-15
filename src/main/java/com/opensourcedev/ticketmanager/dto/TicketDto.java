@@ -13,19 +13,11 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TicketDto {
+public class TicketDto extends BaseItemDto{
 
     private String ticketId; // public ID set by user
 
     private TicketType ticketType;
     private String description;
 
-    private ItemStatus itemStatus;
-
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-    private Timestamp closedAt;
-
-    private IncidentSolver incidentSolver;
-    private User user;
 }

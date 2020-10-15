@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface ChangeTicketMapper {
 
-    ChangeTicketDto changeTicketToChangeDto(final ChangeTicket changeTicket);
+    ChangeTicketDto changeTicketToChangeTicketDto(final ChangeTicket changeTicket);
     ChangeTicket changeTicketDtoToChangeTicket(final ChangeTicketDto changeTicketDto);
 }
