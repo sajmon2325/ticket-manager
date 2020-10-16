@@ -1,5 +1,7 @@
 package com.opensourcedev.ticketmanager.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.opensourcedev.ticketmanager.model.enums.UserType;
 import com.opensourcedev.ticketmanager.model.items.ChangeTicket;
 import com.opensourcedev.ticketmanager.model.items.Incident;
@@ -8,9 +10,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
+
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class User {     // This entity represents user who is reporting an item
 
+    @JsonIgnore
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -29,26 +31,23 @@ public class User {     // This entity represents user who is reporting an item
     private String userId;
 
     @Enumerated(value = EnumType.STRING)
-    @NotBlank
+    @NotNull
     private UserType userType;
 
     @NotBlank
-    @Min(5)
-    @Max(25)
-    @Column(unique = true, nullable = false)
+    @Size(min = 5, max = 50)
+    @Column(unique = false, nullable = false)
     private String userName;
 
-    @Min(5)
-    @Max(25)
-    @Column(unique = true, nullable = false)
-    private String password;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private ChangeTicket changeTicket;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Incident incident;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Ticket ticket;
 

@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class IncidentInterfaceImpl implements IncidentInterface {
+public class IncidentServiceImpl implements IncidentService {
 
     private final IncidentRepository incidentRepository;
 
-    public IncidentInterfaceImpl(IncidentRepository incidentRepository) {
+    public IncidentServiceImpl(IncidentRepository incidentRepository) {
         this.incidentRepository = incidentRepository;
     }
 

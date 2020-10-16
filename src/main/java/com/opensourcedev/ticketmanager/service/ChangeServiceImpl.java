@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Service
-public class ChangeInterfaceImpl implements ChangeInterface {
+public class ChangeServiceImpl implements ChangeService {
 
     private final ChangeRepository changeRepository;
 
-    public ChangeInterfaceImpl(ChangeRepository changeRepository) {
+    public ChangeServiceImpl(ChangeRepository changeRepository) {
         this.changeRepository = changeRepository;
     }
 
