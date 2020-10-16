@@ -1,5 +1,6 @@
 package com.opensourcedev.ticketmanager.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opensourcedev.ticketmanager.model.items.ChangeTicket;
 import com.opensourcedev.ticketmanager.model.items.Incident;
 import com.opensourcedev.ticketmanager.model.items.Ticket;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -19,6 +21,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class IncidentSolver {   // this user is responsible for solving all items, not only incidents
 
+    @JsonIgnore
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -28,22 +31,19 @@ public class IncidentSolver {   // this user is responsible for solving all item
     private String incidentId;
 
     @NotBlank
-    @Min(5)
-    @Max(25)
-    @Column(unique = true, nullable = false)
+    @Size(min = 5, max = 50)
+    @Column(unique = false, nullable = false)
     private String userName;
 
-    @Min(5)
-    @Max(25)
-    @Column(unique = true, nullable = false)
-    private String password;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "incidentSolver")
     private ChangeTicket changeTicket;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "incidentSolver")
     private Incident incident;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "incidentSolver")
     private Ticket ticket;
 

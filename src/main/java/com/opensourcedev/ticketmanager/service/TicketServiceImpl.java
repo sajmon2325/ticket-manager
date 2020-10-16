@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class TicketInterfaceImpl implements TicketInterface {
+public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
 
-    public TicketInterfaceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
 
