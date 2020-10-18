@@ -1,0 +1,12 @@
+api:
+  common:
+    version: 1.0.0
+    title: Ticket Manager
+    description: Ticket Manager server as a simple REST API for managing ticket and Incidents
+    termsOfServiceUrl: LINK FOR TERMS OF SERVICE
+    license: This is a Open Source Licensed product
+    licenseUrl: LINK FOR LICENSE URL
+    contact:
+      name: opensourcedev
+      url: URL FOR OPENSOURCEDEV
+      email: sample@gmail.com

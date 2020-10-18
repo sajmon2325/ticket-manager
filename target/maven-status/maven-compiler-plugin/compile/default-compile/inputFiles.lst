@@ -9,6 +9,7 @@ D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\ser
 D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\ChangeType.java
 D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\bootstrap\BootstrapData.java
 D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\model\enums\UserType.java
+D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\apidocs\SpringFoxConfig.java
 D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\mappers\BaseItemMapper.java
 D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\controller\ChangeTicketController.java
 D:\Git Projects\ticket-manager\src\main\java\com\opensourcedev\ticketmanager\service\ChangeService.java

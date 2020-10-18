@@ -31,9 +31,9 @@ com\opensourcedev\ticketmanager\controller\TicketController.class
 com\opensourcedev\ticketmanager\model\users\IncidentSolver$IncidentSolverBuilder.class
 com\opensourcedev\ticketmanager\repository\TicketRepository.class
 com\opensourcedev\ticketmanager\model\enums\IncidentType.class
-com\opensourcedev\ticketmanager\bootstrap\BootstrapData.class
 com\opensourcedev\ticketmanager\controller\ChangeTicketController.class
 com\opensourcedev\ticketmanager\mappers\TicketMapperImpl.class
+com\opensourcedev\ticketmanager\apidocs\SpringFoxConfig.class
 com\opensourcedev\ticketmanager\model\enums\TicketType.class
 com\opensourcedev\ticketmanager\model\users\IncidentSolver.class
 com\opensourcedev\ticketmanager\service\TicketService.class
