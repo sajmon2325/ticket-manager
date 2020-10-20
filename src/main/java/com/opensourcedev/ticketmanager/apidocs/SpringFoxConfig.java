@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.config.annotation.*;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -17,30 +16,30 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Collections;
 
 @Component
-@PropertySource("classpath:springFoxdocumentation.yml")
+@PropertySource("classpath:application.yml")
 @EnableSwagger2
-@EnableWebMvc
-public class SpringFoxConfig implements WebMvcConfigurer  {
+//@EnableWebMvc
+public class SpringFoxConfig {
+
 
     @Value("${api.common.version}")
-    private static String apiVersion;
+    private String apiVersion;
     @Value("${api.common.title}")
-    private static String apiTitle;
+    private String apiTitle;
     @Value("${api.common.description}")
-    private static String apiDescription;
+    private String apiDescription;
     @Value("${api.common.termsOfServiceUrl}")
-    private static String apiTermsOfServiceUrl;
+    private String apiTermsOfServiceUrl;
     @Value("${api.common.license}")
-    private static String apiLicense;
+    private String apiLicense;
     @Value("${api.common.licenseUrl}")
-    private static String apiLicenseUrl;
+    private String apiLicenseUrl;
     @Value("${api.common.contact.name}")
-    private static String apiContactName;
+    private String apiContactName;
     @Value("${api.common.contact.url}")
-    private static String apiContactUrl;
+    private String apiContactUrl;
     @Value("${api.common.contact.email}")
-    private static String apiContactEmail;
-
+    private String apiContactEmail;
 
 
     @Bean
@@ -52,24 +51,15 @@ public class SpringFoxConfig implements WebMvcConfigurer  {
                 .build()
                     .globalResponseMessage(RequestMethod.GET, Collections.emptyList())
                     .apiInfo(new ApiInfo(
-                        apiVersion,
-                        apiTitle,
-                        apiDescription,
-                        apiTermsOfServiceUrl,
+                            apiTitle,
+                            apiDescription,
+                            apiVersion,
+                            apiLicenseUrl,
                         new Contact( apiContactName, apiContactUrl,apiContactEmail),
-                        apiLicense,
-                        apiLicenseUrl,
+                            apiLicense,
+                            apiTermsOfServiceUrl,
                         Collections.emptyList()
                     ));
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }

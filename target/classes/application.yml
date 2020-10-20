@@ -6,6 +6,7 @@ api:
     termsOfServiceUrl: LINK FOR TERMS OF SERVICE
     license: This is a Open Source Licensed product
     licenseUrl: LINK FOR LICENSE URL
+
     contact:
       name: opensourcedev
       url: URL FOR OPENSOURCEDEV
