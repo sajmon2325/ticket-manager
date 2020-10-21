@@ -11,3 +11,31 @@ api:
       name: opensourcedev
       url: URL FOR OPENSOURCEDEV
       email: sample@gmail.com
+
+    detailedDescription:
+      notes: |
+        # Normal response
+        If the requested id is found the method will return information regarding:
+        1. Description of the Ticket, Incident or Change Ticker
+        2. Who created the Ticekt, Incident or Change Ticket
+        3. Who is solving the particular Ticekt, Incident or Change Ticket
+        4. When was the ticket created, deleted or modified
+        5. What TYPE is the Ticekt, Incident or Change Ticket
+
+        # Expected partial and error responses
+        In the following cases, only a partial response will be created (because the API is still in development phase)
+
+        ## Not a valid UUID as ID
+        422 - A <b>Bad Request</b>  error will be returned
+
+        ## No User or Incident Solver specified
+        200 - <b>OK</b> but no details abour User or Incident Solver will be provided
+
+        ## Non existing ID
+        200 - <b>OK</b> but an emptu JSON will be returned
+
+        ## No password or username
+        400 - <b>Bad Request</b> username and password must be provided
+
+        ## Saving item that breached validation constraints
+        422 - <b>Unprocessable Entity</b> this item won't be stored

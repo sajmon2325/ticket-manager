@@ -1,9 +1,11 @@
 package com.opensourcedev.ticketmanager.apidocs;
 
+import com.google.common.base.Predicates;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -18,7 +20,6 @@ import java.util.Collections;
 @Component
 @PropertySource("classpath:application.yml")
 @EnableSwagger2
-//@EnableWebMvc
 public class SpringFoxConfig {
 
 

@@ -4,6 +4,10 @@ import com.opensourcedev.ticketmanager.dto.ChangeTicketDto;
 import com.opensourcedev.ticketmanager.mappers.ChangeTicketMapper;
 import com.opensourcedev.ticketmanager.model.items.ChangeTicket;
 import com.opensourcedev.ticketmanager.service.ChangeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,7 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
+@Api(tags = {"Change Ticker REST API"})
 @RestController
 @Slf4j
 @RequestMapping({"/change", "/Change"})
@@ -32,7 +37,15 @@ public class ChangeTicketController {
     }
 
 
-
+    @ApiOperation(value = "Returns a list of all change tickets",
+                  notes = "${api.common.detailedDescription.notes}"
+    )
+    @ApiResponses(value ={
+            @ApiResponse(code = 200, message = "OK, Request to find all Change tickets was processed fine"),
+            @ApiResponse(code = 400, message = "Bad Request, invalid format of the request"),
+            @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fail"),
+            @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
+    })
     @GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<ChangeTicketDto>> findAllTickets(){
         Set<ChangeTicketDto> changeTicketDtos = new HashSet<>();
@@ -43,12 +56,30 @@ public class ChangeTicketController {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(changeTicketDtos);
     }
 
+    @ApiOperation(value = "Returns a change ticket based on his ID",
+            notes = "${api.common.detailedDescription.notes}"
+    )
+    @ApiResponses(value ={
+            @ApiResponse(code = 200, message = "OK, Request to find a specific Change ticket was processed fine"),
+            @ApiResponse(code = 400, message = "Bad Request, invalid format of the request"),
+            @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fail"),
+            @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
+    })
     @GetMapping(value = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ChangeTicketDto> findById(@PathVariable String id){
         ChangeTicketDto changeTicketDto = changeTicketMapper.changeTicketToChangeTicketDto(changeService.findById(id));
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(changeTicketDto);
     }
 
+    @ApiOperation(value = "Persists change ticket to database",
+            notes = "${api.common.detailedDescription.notes}"
+    )
+    @ApiResponses(value ={
+            @ApiResponse(code = 200, message = "OK, Request to save Change ticket was processed fine"),
+            @ApiResponse(code = 400, message = "Bad Request, invalid format of the request"),
+            @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fail"),
+            @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
+    })
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> save(@RequestBody @Validated ChangeTicketDto changeTicketDto){
         ChangeTicket mappedChangeTicket = changeTicketMapper.changeTicketDtoToChangeTicket(changeTicketDto);
@@ -57,6 +88,15 @@ public class ChangeTicketController {
                 .body("Change Ticket has been saved");
     }
 
+    @ApiOperation(value = "Deletes a change tickets based on his ID",
+            notes = "${api.common.detailedDescription.notes}"
+    )
+    @ApiResponses(value ={
+            @ApiResponse(code = 200, message = "OK, Request to delete a specific Change ticket was processed fine"),
+            @ApiResponse(code = 400, message = "Bad Request, invalid format of the request"),
+            @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fail"),
+            @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
+    })
     @DeleteMapping(value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> delete(@PathVariable String id){
         changeService.deleteById(id);
