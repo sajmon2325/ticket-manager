@@ -23,7 +23,7 @@ import java.util.Set;
 @Api(tags = {"Incident REST API"})
 @RestController
 @Slf4j
-@RequestMapping({"/incident", "/Incident"})
+@RequestMapping({"/incident"})
 public class IncidentController {
 
     private final IncidentMapper incidentMapper = Mappers.getMapper(IncidentMapper.class);

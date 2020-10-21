@@ -23,7 +23,7 @@ import java.util.Set;
 @Api(tags = {"Ticker REST API"})
 @RestController
 @Slf4j
-@RequestMapping({"/ticket", "/Ticket"})
+@RequestMapping({"/ticket"})
 public class TicketController {
 
     private final TicketMapper ticketMapper = Mappers.getMapper(TicketMapper.class);

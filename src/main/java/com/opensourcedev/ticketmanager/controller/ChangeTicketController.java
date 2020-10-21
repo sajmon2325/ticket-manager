@@ -24,7 +24,7 @@ import java.util.Set;
 @Api(tags = {"Change Ticker REST API"})
 @RestController
 @Slf4j
-@RequestMapping({"/change", "/Change"})
+@RequestMapping({"/change"})
 public class ChangeTicketController {
     // TODO add Request Param to advanced queries
     private final ChangeTicketMapper changeTicketMapper = Mappers.getMapper(ChangeTicketMapper.class);
