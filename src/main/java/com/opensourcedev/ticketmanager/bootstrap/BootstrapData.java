@@ -1,3 +1,4 @@
+/*
 package com.opensourcedev.ticketmanager.bootstrap;
 
 import com.opensourcedev.ticketmanager.model.enums.ChangeType;
@@ -65,3 +66,4 @@ public class BootstrapData implements CommandLineRunner {
         loadBootstrapData();
     }
 }
+*/
