@@ -26,7 +26,7 @@ api:
         In the following cases, only a partial response will be created (because the API is still in development phase)
 
         ## Not a valid UUID as ID
-        422 - A <b>Bad Request</b>  error will be returned
+        422 - <b>Bad Request</b>  error will be returned
 
         ## No User or Incident Solver specified
         200 - <b>OK</b> but no details abour User or Incident Solver will be provided
