@@ -16,7 +16,8 @@ import java.sql.Timestamp;
 public class ChangeTicketDto extends BaseItemDto {
 
     @Builder
-    public ChangeTicketDto(ItemStatus itemStatus, Timestamp createdAt, Timestamp updatedAt, Timestamp closedAt, IncidentSolver incidentSolver, User user, String changeId, ChangeType changeType, String description) {
+    public ChangeTicketDto(ItemStatus itemStatus, Timestamp createdAt, Timestamp updatedAt, Timestamp closedAt,
+                           IncidentSolver incidentSolver, User user, String changeId, ChangeType changeType, String description) {
         super(itemStatus, createdAt, updatedAt, closedAt, incidentSolver, user);
         this.changeId = changeId;
         this.changeType = changeType;

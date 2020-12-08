@@ -96,7 +96,7 @@ public class TicketController {
             @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fail"),
             @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
     })
-    @DeleteMapping(value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable String id){
         ticketService.deleteById(id);
         return ResponseEntity.ok(HttpStatus.OK + " Ticket with ID: " + id + " has been deleted");

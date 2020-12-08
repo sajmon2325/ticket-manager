@@ -24,7 +24,7 @@ class ChangeServiceImplTest {
 
 
     @Test
-    public void testConversionOfObject() throws JsonProcessingException {
+    public void testConversionOfObjectFromPojoToJson() throws JsonProcessingException {
 
         changeTicketDto = changeTicketDto.builder()
                 .changeId("StringID")
@@ -36,10 +36,6 @@ class ChangeServiceImplTest {
                 .closedAt(Timestamp.from(Instant.now()))
                 .incidentSolver(IncidentSolver.builder().id("ID").incidentId("SOME ID FOR TEST").userName("DUDEAT").build())
                 .user(User.builder().userName("USERNAME").userType(UserType.USER).userId("SOMEID").build())
-
-
-
-
                 .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
