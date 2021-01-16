@@ -1,6 +1,8 @@
 package com.opensourcedev.ticketmanager.controller;
 
 import com.opensourcedev.ticketmanager.dto.TicketDto;
+import com.opensourcedev.ticketmanager.exceptions.ChangeTicketException;
+import com.opensourcedev.ticketmanager.exceptions.IncidentException;
 import com.opensourcedev.ticketmanager.mappers.TicketMapper;
 import com.opensourcedev.ticketmanager.model.items.Ticket;
 import com.opensourcedev.ticketmanager.service.TicketService;
@@ -13,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +55,12 @@ public class TicketController {
             TicketDto ticketDto = ticketMapper.ticketToTicketDto(ticket);
             ticketDtos.add(ticketDto);
         });
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ticketDtos);
+
+        if (ticketDtos.isEmpty()){
+            throw new ChangeTicketException(HttpStatus.NOT_FOUND, "Unable to find ticket entities");
+        }else {
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ticketDtos);
+        }
     }
 
     @ApiOperation(value = "Returns a ticket based on ticket ID",
@@ -67,7 +75,12 @@ public class TicketController {
     @GetMapping(value = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TicketDto> findbyId(@PathVariable String id){
         TicketDto ticketDto = ticketMapper.ticketToTicketDto(ticketService.findById(id));
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ticketDto);
+
+        if(ticketDto == null){
+            throw new ChangeTicketException(HttpStatus.NOT_FOUND, "Unable to find ticket with ID: ".concat(id));
+        }else{
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ticketDto);
+        }
     }
 
     @ApiOperation(value = "Persists a ticket to database",
@@ -80,11 +93,16 @@ public class TicketController {
             @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
     })
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> save(@RequestBody @Validated TicketDto ticketDto){
+    public ResponseEntity<String> save(@RequestBody @Validated TicketDto ticketDto, BindingResult result){
         Ticket mappedTicket = ticketMapper.ticketDtoToTicket(ticketDto);
         Ticket savedIncident = ticketService.save(mappedTicket);
-        return ResponseEntity.created(URI.create(BASE_URL + "/save/" + savedIncident.getTicketId()))
-                .body("Ticket has been saved");
+
+        if (result.hasErrors()){
+            throw new IncidentException(HttpStatus.BAD_REQUEST, "Cannot save this type of  ticket");
+        }else {
+            return ResponseEntity.created(URI.create(BASE_URL + "/save/" + savedIncident.getTicketId()))
+                    .body("Ticket has been saved");
+        }
     }
 
     @ApiOperation(value = "Deletes a ticket based on ticket ID",
@@ -99,6 +117,12 @@ public class TicketController {
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable String id){
         ticketService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK + " Ticket with ID: " + id + " has been deleted");
+
+        if (id.isBlank()){
+            throw new IncidentException(HttpStatus.BAD_REQUEST, "URL doesn't contain id or unsupported id is used");
+        }else{
+            return ResponseEntity.ok(HttpStatus.OK + " Ticket with ID: " + id + " has been deleted");
+        }
+
     }
 }

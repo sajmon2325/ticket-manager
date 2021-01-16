@@ -1,6 +1,8 @@
 package com.opensourcedev.ticketmanager.controller;
 
 import com.opensourcedev.ticketmanager.dto.IncidentDto;
+import com.opensourcedev.ticketmanager.exceptions.ChangeTicketException;
+import com.opensourcedev.ticketmanager.exceptions.IncidentException;
 import com.opensourcedev.ticketmanager.mappers.IncidentMapper;
 import com.opensourcedev.ticketmanager.model.items.Incident;
 import com.opensourcedev.ticketmanager.service.IncidentService;
@@ -13,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +55,12 @@ public class IncidentController {
             IncidentDto incidentDto = incidentMapper.incidentToIncidentDto(incident);
             incidentDtos.add(incidentDto);
         });
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(incidentDtos);
+
+        if (incidentDtos.isEmpty()){
+            throw new ChangeTicketException(HttpStatus.NOT_FOUND, "Unable to find incident entities");
+        }else {
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(incidentDtos);
+        }
     }
 
     @ApiOperation(value = "Returns a specific incident based on incident ID",
@@ -67,7 +75,12 @@ public class IncidentController {
     @GetMapping(value = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IncidentDto> findbyId(@PathVariable String id){
         IncidentDto incidentDto = incidentMapper.incidentToIncidentDto(incidentService.findById(id));
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(incidentDto);
+
+        if(incidentDto == null){
+            throw new ChangeTicketException(HttpStatus.NOT_FOUND, "Unable to find Incident with ID: ".concat(id));
+        }else{
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(incidentDto);
+        }
     }
 
     @ApiOperation(value = "Persists incident to database",
@@ -80,11 +93,16 @@ public class IncidentController {
             @ApiResponse(code = 401, message = "Unauthorized, this user is not authorized for this kind of operation")
     })
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> save(@RequestBody @Validated IncidentDto incidentDto){
+    public ResponseEntity<String> save(@RequestBody @Validated IncidentDto incidentDto, BindingResult result){
         Incident mappedIncident = incidentMapper.incidentDtoToIncident(incidentDto);
         Incident savedIncident = incidentService.save(mappedIncident);
-        return ResponseEntity.created(URI.create(BASE_URL + "/save/" + savedIncident.getIncidentId()))
-                .body("Incident has been saved");
+
+        if (result.hasErrors()){
+            throw new IncidentException(HttpStatus.BAD_REQUEST, "Cannot save this type of change ticket");
+        }else {
+            return ResponseEntity.created(URI.create(BASE_URL + "/save/" + savedIncident.getIncidentId()))
+                    .body("Incident has been saved");
+        }
     }
 
     @ApiOperation(value = "Deletes a specific incident based on incident ID",
@@ -99,6 +117,11 @@ public class IncidentController {
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable String id){
         incidentService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK + " Incident with ID: " + id + " has been deleted");
+
+        if (id.isBlank()){
+            throw new IncidentException(HttpStatus.BAD_REQUEST, "URL doesn't contain id or unsupported id is used");
+        }else{
+            return ResponseEntity.ok(HttpStatus.OK + " Incident with ID: " + id + " has been deleted");
+        }
     }
 }

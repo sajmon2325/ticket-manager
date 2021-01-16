@@ -1,8 +1,8 @@
 package com.opensourcedev.ticketmanager.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.opensourcedev.ticketmanager.dto.ChangeTicketDto;
+import com.opensourcedev.ticketmanager.exceptions.ChangeTicketException;
 import com.opensourcedev.ticketmanager.mappers.ChangeTicketMapper;
 import com.opensourcedev.ticketmanager.model.items.ChangeTicket;
 import com.opensourcedev.ticketmanager.service.ChangeService;
@@ -15,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,13 @@ public class ChangeTicketController {
             ChangeTicketDto changeTicketDto = changeTicketMapper.changeTicketToChangeTicketDto(changeTicket);
             changeTicketDtos.add(changeTicketDto);
         });
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(changeTicketDtos);
+
+        if (changeTicketDtos.isEmpty()){
+            throw new ChangeTicketException(HttpStatus.NOT_FOUND, "Unable to find change ticket entities");
+        }else {
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(changeTicketDtos);
+        }
+
     }
 
     @ApiOperation(value = "Returns a change ticket based on his ID",
@@ -70,7 +77,12 @@ public class ChangeTicketController {
     @GetMapping(value = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ChangeTicketDto> findById(@PathVariable String id){
         ChangeTicketDto changeTicketDto = changeTicketMapper.changeTicketToChangeTicketDto(changeService.findById(id));
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(changeTicketDto);
+
+        if(changeTicketDto == null){
+            throw new ChangeTicketException(HttpStatus.NOT_FOUND, "Unable to find Change Ticket with ID: ".concat(id));
+        }else{
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(changeTicketDto);
+        }
     }
 
     @ApiOperation(value = "Persists change ticket to database",
@@ -85,9 +97,14 @@ public class ChangeTicketController {
 
 
    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> save(@RequestBody @Validated ChangeTicketDto changeTicketDto){
+    public ResponseEntity<String> save(@RequestBody @Validated ChangeTicketDto changeTicketDto, BindingResult bindingResult){
         ChangeTicket mappedChangeTicket = changeTicketMapper.changeTicketDtoToChangeTicket(changeTicketDto);
         ChangeTicket savedTicket = changeService.save(mappedChangeTicket);
+
+        if (bindingResult.hasErrors()){
+            throw new ChangeTicketException(HttpStatus.BAD_REQUEST, "Cannot save this type of change ticket");
+        }
+
         return ResponseEntity.created(URI.create(BASE_URL + "/save/" + savedTicket.getChangeId()))
                 .body("Change Ticket has been saved");
     }
@@ -104,8 +121,16 @@ public class ChangeTicketController {
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable String id){
         changeService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK + " Change Ticket with ID: " + id + " has been deleted");
+
+        if (id.isBlank()){
+            throw new ChangeTicketException(HttpStatus.BAD_REQUEST, "URL doesn't contain id or unsupported id is used");
+        }else {
+            return ResponseEntity.ok(HttpStatus.OK + " Change Ticket with ID: " + id + " has been deleted");
+
+        }
     }
+
+
 }
 
 //consumes = MediaType.APPLICATION_JSON_VALUE
